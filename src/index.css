@@ -3,5 +3,10 @@
   border-radius: 5px;
   max-width: 500px;
   padding: 10px;
-  
+  margin-bottom: 10px;
+
+}
+
+.deleteButton {
+  margin-top: 10px;
 }

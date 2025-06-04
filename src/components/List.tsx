@@ -19,9 +19,28 @@ const List = () => {
       id: Date.now().toString(),
       name: input,
       pokedexNumber: randomNum,
-      completed: false
+      completed: false,
     };
     setTasks([...tasks, newTask]);
+    setInput('');
+  }
+
+  function deleteTask(id: string) {
+    setTasks(tasks.filter((task) => task.id !== id));
+    console.log
+  }
+
+  function completeTask(id: string) {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            completed: !task.completed,
+          };
+        } else return task;
+      })
+    );
   }
 
   return (
@@ -30,15 +49,12 @@ const List = () => {
       <input
         type="text"
         value={input}
-        onChange={(e) => {
-          setInput(e.target.value);
-          console.log(input);
-        }}
+        onChange={(e) => {setInput(e.target.value)}}
       ></input>
-      <button onClick={addTask(input)}>Add</button>
+      <button onClick={() => addTask(input)}>Add</button>
       <h2>Tasks:</h2>
       {tasks.map((task) => (
-        <Task key={Date.now()} task={task} />
+        <Task key={`${task.name}-key`} task={task} deleteTask={deleteTask} completeTask={completeTask} />
       ))}
     </div>
   );

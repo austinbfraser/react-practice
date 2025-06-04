@@ -1,22 +1,6 @@
 import './App.css';
 import List from './components/List';
 
-function THE_PLAN() {
-  /**
-   * Component Structure:
-   * App -> List -> Task
-   *
-   *
-   * Task functionality:
-   * deleteTask
-   * completeTask
-   *
-   * List functionality:
-   * addTask
-   * }
-   */
-}
-
 function App() {
   return (
     <div>
