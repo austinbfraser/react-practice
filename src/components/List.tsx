@@ -27,7 +27,6 @@ const List = () => {
 
   function deleteTask(id: string) {
     setTasks(tasks.filter((task) => task.id !== id));
-    console.log
   }
 
   function completeTask(id: string) {
@@ -51,7 +50,7 @@ const List = () => {
         value={input}
         onChange={(e) => {setInput(e.target.value)}}
       ></input>
-      <button onClick={() => addTask(input)}>Add</button>
+      <button className="addButton" onClick={() => addTask(input)}>Add</button>
       <h2>Tasks:</h2>
       {tasks.map((task) => (
         <Task key={`${task.name}-key`} task={task} deleteTask={deleteTask} completeTask={completeTask} />
