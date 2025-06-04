@@ -1,0 +1,11 @@
+.task {
+  border: 1px solid black;
+  max-width: 400px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.textBox {
+  margin-right: 10px;
+}

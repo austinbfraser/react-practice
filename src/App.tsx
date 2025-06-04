@@ -1,9 +1,13 @@
-import './App.css'
+import './App.css';
+import List from "../components/List";
 
 function App() {
   return (
-      <div>App</div>
-  )
+    <>
+      <h1>To-do List</h1>
+      <List />
+    </>
+  );
 }
 
-export default App
+export default App;
