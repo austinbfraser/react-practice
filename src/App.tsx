@@ -1,8 +1,16 @@
-import './App.css'
+import './App.css';
+import List from './components/List'
+
+/**
+ * 
+ * App -> List -> Card
+ */
 
 function App() {
   return (
-      <div>App</div>
+      <div>
+        <List />
+      </div>
   )
 }
 
