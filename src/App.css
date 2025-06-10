@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+
+.appContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  color: white
+}
+
+.blurb {
+  color: lightgrey;
+  
+}
+
+.formContainer {
+  width: 400px;
+  color: lightgray;
+}
+
+.uploadAvatar {
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px dashed lightgrey;
+}
+
+.uploadSquare {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uploadGraphic {
+  opacity: 100%;
+}
+
+.uploadBlurb {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  color: lightgrey
+}
+
+.uploadRequirements {
+  color: lightgrey;
+}
+
+.textInput {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
+
+.generateButton {
+  margin-top: 25px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid lightgrey;
+}
