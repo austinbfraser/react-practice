@@ -16,9 +16,10 @@ const UploadAvatar = ({
   errors,
   setErrors,
 }: UploadAvatarProps) => {
-  const [file, setFile] = useState(null);
+  
+  const [file, setFile] = useState<File | null>(null);
 
-  const handleChange = (file) => {
+  const handleChange = (file: File) => {
     setFile(file);
     if (!hasImage) setHasImage(!hasImage);
     if (errors.image) {
@@ -26,6 +27,7 @@ const UploadAvatar = ({
       delete newErrors.image;
       setErrors(newErrors);
     }
+    console.log('file: ', file);
   };
 
   const handleTypeError = (err: string) => {
@@ -53,7 +55,7 @@ const UploadAvatar = ({
   return (
     <>
       <FileUploader
-        multiple={true}
+        multiple={false}
         handleChange={handleChange}
         types={fileTypes}
         uploadedLabel={'Uploaded successfully'}
@@ -102,7 +104,7 @@ const UploadAvatar = ({
         children={
           <div className="uploadAvatar">
             <p className="fileStatus">
-              {file ? `File name: ${file[0].name}` : 'no files uploaded yet'}
+              {file ? `File name: ${file.name}` : 'no files uploaded yet'}
             </p>
             <div className="uploadSquare">
               <img
