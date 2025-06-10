@@ -54,6 +54,10 @@
   color: lightgrey
 }
 
+.fileStatus {
+  margin-top: 0px;
+}
+
 .uploadRequirements {
   color: lightgrey;
 }
@@ -63,11 +67,43 @@
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   border: 1px solid lightgrey;
+  color: lightgrey;
+  padding: 10px;
+  outline: none;
+}
+
+.textInput:focus {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .generateButton {
   margin-top: 25px;
   width: 100%;
+  height: 37px;
+  background-color: #f05d51;
   border-radius: 5px;
-  border: 1px solid lightgrey;
+  border: 1px solid #f05d51;
+  cursor: pointer;
+  
+}
+
+.generateButton:disabled {
+  cursor: not-allowed;
+}
+
+.error {
+  color: #f05d51;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.iIcon {
+  width: 16px;
+  height: 16px;
+  fill: #f05d51;
+}
+
+.errorText {
+  margin-left: 5px;
 }
