@@ -1,27 +1,23 @@
-import { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import type { ErrorsInterface } from '../App';
 
 const fileTypes = ['jpg', 'png'];
 interface UploadAvatarProps {
-  hasImage: boolean;
-  setHasImage: (input: boolean) => void;
   errors: ErrorsInterface;
   setErrors: (input: ErrorsInterface) => void;
+  file: File | null;
+  setFile: (file: File) => void;
 }
 
 const UploadAvatar = ({
-  hasImage,
-  setHasImage,
+  file,
+  setFile,
   errors,
   setErrors,
 }: UploadAvatarProps) => {
-  
-  const [file, setFile] = useState<File | null>(null);
 
   const handleChange = (file: File) => {
     setFile(file);
-    if (!hasImage) setHasImage(!hasImage);
     if (errors.image) {
       const newErrors = {...errors};
       delete newErrors.image;
@@ -32,7 +28,7 @@ const UploadAvatar = ({
 
   const handleTypeError = (err: string) => {
     console.log(err);
-    if (!hasImage) {
+    if (file === null) {
       setErrors({
         ...errors,
         imageType: 'File must be either JPG or PNG.',
@@ -43,7 +39,7 @@ const UploadAvatar = ({
 
   const handleSizeError = (err: string) => {
     console.log(err);
-    if (!hasImage) {
+    if (file === null) {
       setErrors({
         ...errors,
         imageSize: 'File too large.  Please upload a photo under 500KB.',

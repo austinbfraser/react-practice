@@ -15,15 +15,15 @@ export interface ErrorsInterface {
 
 function App() {
   const [errors, setErrors] = useState<ErrorsInterface>({});
-  const [hasImage, setHasImage] = useState<boolean>(false);
+  const [file, setFile] = useState<File | null>(null);
   const [fullName, setFullName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [github, setGithub] = useState<string>('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent actual form submission
     const errors: ErrorsInterface = {};
-    if (!hasImage) errors.image = 'Avatar is required.';
+    if (file === null) errors.image = 'Avatar is required.';
     if (!fullName.trim()) errors.fullName = 'Full name is required.';
     if (!email.trim()) errors.email = 'Email is required.';
     if (email.trim() && !email.includes('@'))
@@ -50,8 +50,8 @@ function App() {
       <form className="formContainer" onSubmit={handleSubmit}>
         <p>Upload Avatar</p>
         <UploadAvatar
-          hasImage={hasImage}
-          setHasImage={setHasImage}
+          file={file}
+          setFile={setFile}
           errors={errors}
           setErrors={setErrors}
         />
