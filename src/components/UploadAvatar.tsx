@@ -98,7 +98,7 @@ const UploadAvatar = ({
           console.log('onSelect fired.');
         }}
         children={
-          <div className="uploadAvatar">
+          <div className="uploadAvatar" tabIndex={0}>
             <p className="fileStatus">
               {file ? `File name: ${file.name}` : 'no files uploaded yet'}
             </p>

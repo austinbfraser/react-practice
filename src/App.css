@@ -31,6 +31,12 @@
   align-items: center;
   border-radius: 5px;
   border: 1px dashed lightgrey;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.uploadAvatar:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .uploadSquare {
@@ -69,7 +75,12 @@
   border: 1px solid lightgrey;
   color: lightgrey;
   padding: 10px;
-  outline: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.textInput:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .textInput:focus {
@@ -84,11 +95,13 @@
   border-radius: 5px;
   border: 1px solid #f05d51;
   cursor: pointer;
-  
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
-.generateButton:disabled {
-  cursor: not-allowed;
+.generateButton:hover {
+  box-shadow: 0px 3px 0px #f05d51;
+  background-color: #d84a3f;
 }
 
 .error {
@@ -106,4 +119,12 @@
 
 .errorText {
   margin-left: 5px;
+}
+
+
+.textInput:focus,
+.generateButton:focus,
+.uploadAvatar:focus {
+  outline: 1px solid lightgrey;
+  outline-offset: 3px;
 }

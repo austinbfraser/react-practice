@@ -35,6 +35,10 @@ function App() {
     if (Object.keys(errors).length === 0) {
       // All good: proceed with form logic
       console.log('Form is valid! Submitting...');
+      setFile(null);
+      setFullName('');
+      setEmail('');
+      setGithub('');
     }
   };
 
@@ -85,6 +89,7 @@ function App() {
           className="textInput"
           id="textInput-fullName"
           type="text"
+          value={fullName}
           onChange={(e) => {
             setFullName(e.target.value);
             if (errors.fullName) {
@@ -107,6 +112,7 @@ function App() {
           id="textInput-email"
           placeholder="example@email.com"
           type="text"
+          value={email}
           onChange={(e) => {
             setEmail(e.target.value);
             if (errors.email) {
@@ -137,6 +143,7 @@ function App() {
             }
           }}
           type="text"
+          value={github}
         ></input>
         {errors.github && (
           <div className="error">
