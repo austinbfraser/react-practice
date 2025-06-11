@@ -17,13 +17,13 @@ const UploadAvatar = ({
   errors,
   setErrors,
 }: UploadAvatarProps) => {
-
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  
+  const inputRef = useRef<HTMLLabelElement | null>(null);
 
   const handleChange = (file: File) => {
     setFile(file);
     if (errors.image) {
-      const newErrors = {...errors};
+      const newErrors = { ...errors };
       delete newErrors.image;
       setErrors(newErrors);
     }
@@ -50,10 +50,10 @@ const UploadAvatar = ({
     } else alert('File too large. Please upload a photo under 500KB.');
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      inputRef.current?.click(); 
+      inputRef.current?.click();
       // Simulate a click on the inputRef, which is designated as the uploadAvatar className
     }
   };
@@ -84,11 +84,11 @@ const UploadAvatar = ({
           console.log('onSelect fired.');
         }}
       >
-        <div
+        <label
           className="uploadAvatar"
           tabIndex={0}
           role="button"
-          aria-label="Upload your avatar"
+          aria-label="Upload your avatar.  Click or press Enter or Space to select a file."
           onKeyDown={handleKeyDown}
           ref={inputRef}
         >
@@ -103,7 +103,7 @@ const UploadAvatar = ({
             />
           </div>
           <p className="uploadBlurb">Drag and drop or click to upload</p>
-        </div>
+        </label>
       </FileUploader>
     </>
   );
