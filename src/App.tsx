@@ -60,31 +60,31 @@ function App() {
           setErrors={setErrors}
         />
         {errors.image && (
-          <div className="error">
+          <div className="error" id="error-image">
             <InfoIcon />
             <span className="errorText">{errors.image}</span>
           </div>
         )}
         {errors.imageSize && (
-          <div className="error">
+          <div className="error" id="error-imageSize">
             <InfoIcon />
             <span className="errorText">{errors.imageSize}</span>
           </div>
         )}
         {errors.imageType && (
-          <div className="error">
+          <div className="error" id="error-imageType">
             <InfoIcon />
             <span className="errorText">{errors.imageType}</span>
           </div>
         )}
 
         {!errors.image && !errors.imageSize && !errors.imageType && (
-          <p className="uploadRequirements">
+          <p className="uploadRequirements" id="hint-uploadAvatar">
             Upload your photo (JPG or PNG, max size: 500KB).
           </p>
         )}
 
-        <p>Full Name</p>
+        <label className="formLabel" htmlFor="textInput-fullName">Full Name</label>
         <input
           className="textInput"
           id="textInput-fullName"
@@ -98,15 +98,16 @@ function App() {
               setErrors(newErrors);
             }
           }}
+          aria-describedby="error-fullName"
         ></input>
         {errors.fullName && (
-          <div className="error">
+          <div className="error" id="error-fullName">
             <InfoIcon />
             <span className="errorText">{errors.fullName}</span>
           </div>
         )}
 
-        <p>Email Address</p>
+        <label className="formLabel" htmlFor="textInput-email">Email Address</label>
         <input
           className="textInput"
           id="textInput-email"
@@ -121,15 +122,16 @@ function App() {
               setErrors(newErrors);
             }
           }}
+          aria-describedby="error-email"
         ></input>
         {errors.email && (
-          <div className="error">
+          <div className="error" id="error-email">
             <InfoIcon />
             <span className="errorText">{errors.email}</span>
           </div>
         )}
 
-        <p>GitHub Username</p>
+        <label className="formLabel" htmlFor="textInput-github">GitHub Username</label>
         <input
           className="textInput"
           id="textInput-github"
@@ -144,9 +146,10 @@ function App() {
           }}
           type="text"
           value={github}
+          aria-describedby="error-github"
         ></input>
         {errors.github && (
-          <div className="error">
+          <div className="error" id="error-github">
             <InfoIcon />
             <span className="errorText">{errors.github}</span>
           </div>

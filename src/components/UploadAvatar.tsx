@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import type { ErrorsInterface } from '../App';
 
@@ -17,8 +17,37 @@ const UploadAvatar = ({
   errors,
   setErrors,
 }: UploadAvatarProps) => {
-  
+
+  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
+
   const inputRef = useRef<HTMLLabelElement | null>(null);
+
+  useEffect(() => {
+    if (!file) {
+      setPreviewUrl(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewUrl(objectUrl);
+
+
+/**
+    This is a cleanup to prevent memory leak that can be caused by the client hanging onto the image binary.
+
+    When we use URL.createObjectURL, we're asking the browser to create and manage a reference to 
+    a chunk of binary data (a Blob) in memory. This object is stored outside of the JavaScript heap, 
+    inside the browser’s internal memory management system.
+
+    The returned string (the blob: URL) is just a pointer to that binary blob. As long as that URL 
+    exists and is accessible, the browser cannot garbage-collect the underlying file data, because 
+    it thinks the app might still use it.
+ */
+
+  return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+  }, [file]);
 
   const handleChange = (file: File) => {
     setFile(file);
@@ -58,6 +87,9 @@ const UploadAvatar = ({
     }
   };
 
+  // const imagePreviewUrl: string | undefined = file ? URL.createObjectURL(file) : undefined;
+
+
   return (
     <>
       <FileUploader
@@ -91,18 +123,30 @@ const UploadAvatar = ({
           aria-label="Upload your avatar.  Click or press Enter or Space to select a file."
           onKeyDown={handleKeyDown}
           ref={inputRef}
+          aria-describedby={[
+            errors.image ? 'error-image' : '',
+            errors.imageSize ? 'error-imageSize' : '',
+            errors.imageType ? 'error-imageType' : '',
+            !errors.image && !errors.imageSize && !errors.imageType ? 'hint-uploadAvatar' : ''
+          ].filter(Boolean).join(' ')}
         >
-          <p className="fileStatus">
+          {/* <p className="fileStatus">
             {file ? `File name: ${file.name}` : 'no files uploaded yet'}
-          </p>
+          </p> */}
           <div className="uploadSquare">
-            <img
+            {!file ? <img
               className="uploadGraphic"
               src="assets/images/icon-upload.svg"
               alt="Upload icon"
             />
+            : <img src={previewUrl} className="imagePreview"/>
+            }
           </div>
-          <p className="uploadBlurb">Drag and drop or click to upload</p>
+          {!file ? <p className="uploadBlurb">Drag and drop or click to upload</p> 
+          : <div>
+            <button>Remove Image</button>
+            <button>Change Image</button>
+            </div>}
         </label>
       </FileUploader>
     </>
