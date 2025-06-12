@@ -170,11 +170,59 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  padding: 15px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  align-items: start;
   position: relative;
   width: 100%;
   aspect-ratio: 600 / 280;
   margin-top: 70px;
+}
+
+.dateAndLocation {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  padding-left: 40px;
+}
+
+.middleContainer {
+ display: flex;
+ justify-content: flex-end;
+ align-items: flex-end;
+ width: 100%;
+}
+
+.ticketNumber {
+  transform: rotate(90deg);
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.lowerContainer {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.ticketAvatar {
+  border-radius: 10px;
+  width: 70px;
+
+}
+
+.lowerContainer-text {
+  margin-left: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.githubContainer {
+  display: flex;
+  align-items: center;
+}
+
+.lowerContainer-fullName {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }

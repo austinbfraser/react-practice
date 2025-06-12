@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import type { ErrorsInterface } from '../App';
 
@@ -9,6 +9,8 @@ interface UploadAvatarProps {
   setErrors: (input: ErrorsInterface) => void;
   file: File | null;
   setFile: (file: File | null) => void;
+  previewUrl: string | undefined;
+  setPreviewUrl: (input: string | undefined) => void;
 }
 
 const UploadAvatar = ({
@@ -16,36 +18,10 @@ const UploadAvatar = ({
   setFile,
   errors,
   setErrors,
+  previewUrl,
 }: UploadAvatarProps) => {
 
-  const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
-
   const inputRef = useRef<HTMLLabelElement | null>(null);
-
-  useEffect(() => {
-    if (!file) {
-      setPreviewUrl(undefined);
-      return;
-    }
-    const objectUrl = URL.createObjectURL(file);
-    setPreviewUrl(objectUrl);
-
-  /**
-      This return statement below is a cleanup to prevent memory leak that can be caused by the 
-      client hanging onto the image binary.
-
-      When we use URL.createObjectURL, we're asking the browser to create and manage a reference to 
-      a chunk of binary data (a Blob) in memory. This object is stored outside of the JavaScript heap, 
-      inside the browser’s internal memory management system.
-
-      The returned string (the blob: URL) is just a pointer to that binary blob. As long as that URL 
-      exists and is accessible, the browser cannot garbage-collect the underlying file data, because 
-      it thinks the app might still use it.
-  */
-  return () => {
-      URL.revokeObjectURL(objectUrl);
-    };
-  }, [file]);
 
   const handleChange = (file: File) => {
     setFile(file);

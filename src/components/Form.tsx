@@ -14,6 +14,8 @@ interface FormProps {
   setEmail: (input: string) => void;
   github: string;
   setGithub: (input: string) => void;
+  previewUrl: string | undefined;
+  setPreviewUrl: (input: string | undefined) => void;
   validSubmission: boolean;
   setValidSubmission: (input: boolean) => void;
 }
@@ -29,6 +31,8 @@ const Form = ({
   setEmail,
   github,
   setGithub,
+  previewUrl,
+  setPreviewUrl,
   validSubmission,
   setValidSubmission
 }: FormProps) => {
@@ -69,6 +73,8 @@ const Form = ({
           setFile={setFile}
           errors={errors}
           setErrors={setErrors}
+          previewUrl={previewUrl}
+          setPreviewUrl={setPreviewUrl}
         />
         {errors.image && (
           <div className="error" id="error-image">
