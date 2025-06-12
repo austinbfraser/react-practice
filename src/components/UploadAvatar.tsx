@@ -8,7 +8,7 @@ interface UploadAvatarProps {
   errors: ErrorsInterface;
   setErrors: (input: ErrorsInterface) => void;
   file: File | null;
-  setFile: (file: File) => void;
+  setFile: (file: File | null) => void;
 }
 
 const UploadAvatar = ({
@@ -27,23 +27,21 @@ const UploadAvatar = ({
       setPreviewUrl(undefined);
       return;
     }
-
     const objectUrl = URL.createObjectURL(file);
     setPreviewUrl(objectUrl);
 
+  /**
+      This return statement below is a cleanup to prevent memory leak that can be caused by the 
+      client hanging onto the image binary.
 
-/**
-    This is a cleanup to prevent memory leak that can be caused by the client hanging onto the image binary.
+      When we use URL.createObjectURL, we're asking the browser to create and manage a reference to 
+      a chunk of binary data (a Blob) in memory. This object is stored outside of the JavaScript heap, 
+      inside the browser’s internal memory management system.
 
-    When we use URL.createObjectURL, we're asking the browser to create and manage a reference to 
-    a chunk of binary data (a Blob) in memory. This object is stored outside of the JavaScript heap, 
-    inside the browser’s internal memory management system.
-
-    The returned string (the blob: URL) is just a pointer to that binary blob. As long as that URL 
-    exists and is accessible, the browser cannot garbage-collect the underlying file data, because 
-    it thinks the app might still use it.
- */
-
+      The returned string (the blob: URL) is just a pointer to that binary blob. As long as that URL 
+      exists and is accessible, the browser cannot garbage-collect the underlying file data, because 
+      it thinks the app might still use it.
+  */
   return () => {
       URL.revokeObjectURL(objectUrl);
     };
@@ -57,6 +55,7 @@ const UploadAvatar = ({
       setErrors(newErrors);
     }
     console.log('file: ', file);
+    console.log('handleChange fired');
   };
 
   const handleTypeError = (err: string) => {
@@ -84,11 +83,14 @@ const UploadAvatar = ({
       e.preventDefault();
       inputRef.current?.click();
       // Simulate a click on the inputRef, which is designated as the uploadAvatar className
+      console.log('handleKeyDown fired');
     }
   };
 
-  // const imagePreviewUrl: string | undefined = file ? URL.createObjectURL(file) : undefined;
-
+  const handleRemoveImage = (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setFile(null);
+  }
 
   return (
     <>
@@ -130,9 +132,6 @@ const UploadAvatar = ({
             !errors.image && !errors.imageSize && !errors.imageType ? 'hint-uploadAvatar' : ''
           ].filter(Boolean).join(' ')}
         >
-          {/* <p className="fileStatus">
-            {file ? `File name: ${file.name}` : 'no files uploaded yet'}
-          </p> */}
           <div className="uploadSquare">
             {!file ? <img
               className="uploadGraphic"
@@ -144,7 +143,7 @@ const UploadAvatar = ({
           </div>
           {!file ? <p className="uploadBlurb">Drag and drop or click to upload</p> 
           : <div>
-            <button>Remove Image</button>
+            <button onClick={handleRemoveImage}>Remove Image</button>
             <button>Change Image</button>
             </div>}
         </label>
