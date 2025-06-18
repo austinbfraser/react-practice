@@ -1,9 +1,12 @@
-import './App.css'
+import './App.css';
+import CommentsSection from './components/CommentsSection';
 
 function App() {
   return (
-      <div>App</div>
-  )
+    <>
+      <CommentsSection />
+    </>
+  );
 }
 
-export default App
+export default App;
