@@ -65,7 +65,13 @@ const Comment = ({
 
         {data.replies.length > 0 || activeReply
           ? <div className="replyContainer" key={`reply-${Date.now()}`}>
-              {data.replies.map((reply) => <Reply data={reply} currentUser={currentUser} />)}
+              {data.replies.map((reply) => <Reply 
+                                            data={reply} 
+                                            currentUser={currentUser} 
+                                            setComments={setComments} 
+                                            comments={comments} 
+                                            commentId={data.id}
+                                            />)}
               {activeReply && 
                 <PostReply 
                   currentUser={currentUser} 
