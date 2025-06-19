@@ -21,9 +21,9 @@ const CommentsSection = () => {
     <>
       <div className="commentsSection">
         {comments?.map((comment) => (
-          <Comment key={`comment-${comment.id}`} data={comment} currentUser={username} />
+          <Comment key={`comment-${comment.id}`} data={comment} currentUser={username} setComments={setComments} comments={comments} />
         ))}
-        <PostComment currentUser={currentUser} setComments={setComments} comments={comments}/>
+        <PostComment currentUser={currentUser} setComments={setComments} comments={comments} nextId={nextId} setNextId={setNextId}/>
       </div>
     </>
   );

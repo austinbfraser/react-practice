@@ -6,15 +6,17 @@ interface PostCommentProps {
   currentUser: User
   setComments: (input: CommentData[]) => void
   comments: CommentData[]
+  nextId: number
+  setNextId: (input: number) => void
 }
 
-const PostComment = ({ currentUser, setComments, comments }: PostCommentProps) => {
+const PostComment = ({ currentUser, setComments, comments, nextId, setNextId }: PostCommentProps) => {
   const [text, setText] = useState<string>('');
 
 const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   const newComment: CommentData = {
-    id: 0,
+    id: nextId,
     content: text,
     createdAt: 'Just now',
     score: 0,
@@ -23,11 +25,12 @@ const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
   };
   setComments([...comments, newComment]);
   setText('');
-}
+  setNextId(nextId + 1);
+};
 
 const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
   setText(e.target.value);
-}
+};
 
   return (
     <div className='postComment'>

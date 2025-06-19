@@ -6,10 +6,17 @@ import VotingModule from './VotingModule';
 interface CommentProps {
   data: CommentData;
   currentUser: string;
+  setComments: (input: CommentData[]) => void
+  comments: CommentData[]
 }
 
-const Comment = ({ data, currentUser }: CommentProps) => {
+const Comment = ({ data, currentUser, setComments, comments }: CommentProps) => {
   const isOwnPost: boolean = data.user.username === currentUser;
+
+  const handleDelete = () => {
+    const id: number = data.id;
+    setComments(comments.filter(comment => comment.id !== id));
+  };
 
   return (
     <>
@@ -21,13 +28,13 @@ const Comment = ({ data, currentUser }: CommentProps) => {
               <img className="avatar" src={data.user.image.png} />
               <p className="username">
                 {data.user.username}
-                {isOwnPost ? <span className='youIcon'>you</span> : null}
+                {isOwnPost ? <span className="youIcon">you</span> : null}
                 <span className="createdAt">{data.createdAt}</span>
               </p>
               {isOwnPost ? (
                 <>
                   <button className="editButton">Edit</button>
-                  <button className="deleteButton">Delete</button>
+                  <button onClick={handleDelete} className="deleteButton">Delete</button>
                 </>
               ) : (
                 <button className="replyButton">Reply</button>
@@ -41,10 +48,7 @@ const Comment = ({ data, currentUser }: CommentProps) => {
           ? data.replies.map((reply) => {
               return (
                 <div className="replyContainer" key={`reply-${reply.id}`}>
-                  <Reply
-                    data={reply}
-                    currentUser={currentUser}
-                  />
+                  <Reply data={reply} currentUser={currentUser} />
                 </div>
               );
             })
