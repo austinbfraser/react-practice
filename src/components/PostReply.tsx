@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import type { User, CommentData, ReplyData } from '../interfaces';
+import type { User, CommentData, ReplyData, ActiveReply } from '../interfaces';
 
 interface PostReplyProps {
   currentUser: User;
@@ -8,17 +8,15 @@ interface PostReplyProps {
   comments: CommentData[];
   nextId: number;
   setNextId: (input: number) => void;
-  replyingTo: string;
   commentId: number;
-  activeReply: boolean;
-  setActiveReply: (input: boolean) => void;
+  activeReply: ActiveReply;
+  setActiveReply: (input: ActiveReply) => void;
 }
 
 const PostReply = ({
   currentUser,
   nextId,
   setNextId,
-  replyingTo,
   setComments,
   comments,
   commentId,
@@ -35,7 +33,7 @@ const PostReply = ({
       createdAt: 'Just now',
       score: 0,
       user: currentUser,
-      replyingTo: replyingTo,
+      replyingTo: activeReply.replyingTo,
     };
     setComments(
       comments.map((comment) => {
@@ -46,7 +44,7 @@ const PostReply = ({
     );
     setText('');
     setNextId(nextId + 1);
-    setActiveReply((!activeReply));
+    setActiveReply({...activeReply, status: false});
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

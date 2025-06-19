@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { CommentData, User } from '../interfaces';
+import type { CommentData, User, ActiveReply } from '../interfaces';
 import Reply from './Reply';
 import VotingModule from './VotingModule';
 import PostReply from './PostReply';
@@ -23,7 +23,7 @@ const Comment = ({
 }: CommentProps) => {
   const isOwnPost: boolean = data.user.username === currentUser.username;
 
-  const [activeReply, setActiveReply] = useState<boolean>(false);
+  const [activeReply, setActiveReply] = useState<ActiveReply>({status: false, replyingTo: ''});
 
   const handleDelete = () => {
     const id: number = data.id;
@@ -31,8 +31,7 @@ const Comment = ({
   };
 
   const handleReply = () => {
-    if (!activeReply) setActiveReply(true);
-
+    if (!activeReply.status) setActiveReply({status: true, replyingTo: data.user.username});
   };
 
   return (
@@ -71,15 +70,16 @@ const Comment = ({
                                             setComments={setComments} 
                                             comments={comments} 
                                             commentId={data.id}
+                                            activeReply={activeReply}
+                                            setActiveReply={setActiveReply}
                                             />)}
-              {activeReply && 
+              {activeReply.status && 
                 <PostReply 
                   currentUser={currentUser} 
                   setComments={setComments} 
                   comments={comments} 
                   nextId={nextId} 
                   setNextId={setNextId}
-                  replyingTo={data.user.username}
                   commentId={data.id}
                   activeReply={activeReply}
                   setActiveReply={setActiveReply}

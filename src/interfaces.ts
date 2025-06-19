@@ -23,3 +23,8 @@ export interface DataJSON {
   currentUser: User
   comments: CommentData[]
 }
+
+export interface ActiveReply {
+  status: boolean;
+  replyingTo: string
+}

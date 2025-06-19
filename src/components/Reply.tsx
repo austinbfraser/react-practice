@@ -1,5 +1,5 @@
 // import React from 'react';
-import type { ReplyData, User, CommentData } from '../interfaces';
+import type { ReplyData, User, CommentData, ActiveReply } from '../interfaces';
 import VotingModule from './VotingModule';
 
 interface ReplyProps {
@@ -8,6 +8,8 @@ interface ReplyProps {
   setComments: (input: CommentData[]) => void;
   comments: CommentData[];
   commentId: number;
+  activeReply: ActiveReply;
+  setActiveReply: (input: ActiveReply) => void;
 }
 
 const Reply = ({
@@ -16,6 +18,8 @@ const Reply = ({
   comments,
   setComments,
   commentId,
+  activeReply,
+  setActiveReply
 }: ReplyProps) => {
   const isOwnPost: boolean = data.user.username === currentUser.username;
 
@@ -31,6 +35,10 @@ const Reply = ({
         } else return comment;
       })
     );
+  };
+
+  const handleReply = () => {
+    if (!activeReply.status) setActiveReply({status: true, replyingTo: data.user.username});
   };
 
   return (
@@ -50,7 +58,7 @@ const Reply = ({
               <button onClick={handleDelete} className="deleteButton">Delete</button>
             </>
           ) : (
-            <button className="replyButton">Reply</button>
+            <button onClick={handleReply} className="replyButton">Reply</button>
           )}
         </div>
         <p>
