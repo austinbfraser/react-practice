@@ -1,12 +1,98 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .commentsSection {
   background-color: lightgray;
   padding: 10px;
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.comment {
+.comment, .reply {
   border-radius: 5px;
   margin: 10px;
   background-color: white;
   padding: 10px;
+  display: flex;
   
+}
+
+.comment {
+  max-width: 800px;
+}
+
+.reply {
+  max-width: 600px;
+}
+
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end
+}
+
+.comment-votes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+
+}
+
+.createdAt {
+  margin-left: 10px;
+}
+
+.comment-topRow {
+  display: flex;
+  align-items: center;
+  
+}
+
+.comment-main {
+  width: 100%;
+}
+
+.replyButton {
+  margin-left: auto;
+}
+
+.avatar {
+  height: 30px;
+  aspect-ratio: 1 / 1;
+}
+
+.username {
+  margin-left: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.votingInc, .votingDec {
+  border: none;
+  border-radius: 5px;
+  background-color: lightgrey;
+}
+
+.votingInc {
+  margin-bottom: 3px;
+}
+
+.votingDec {
+  margin-top: 3px;
+  width: 100%;
+}
+
+.comment-votes {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 15px;
+  align-self: flex-start;
+  border-radius: 5px;
+  background-color: lightgrey;
 }

@@ -13,7 +13,8 @@ const CommentsSection = () => {
 
   useEffect(() => {
     setComments(data.comments);
-  }, [])
+  }, []);
+  
   return (
     <div className='commentsSection'>
       {comments?.map((comment) => <Comment key={comment.id} data={comment} />)}
