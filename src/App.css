@@ -13,17 +13,17 @@
   align-items: center;
 }
 
-.comment, .reply {
+.comment, .reply, .postComment {
   border-radius: 5px;
   margin: 10px;
   background-color: white;
-  padding: 10px;
+  padding: 20px;
   display: flex;
   
 }
 
-.comment {
-  max-width: 800px;
+.comment, .postComment {
+  width: 800px;
 }
 
 .reply {
@@ -44,8 +44,16 @@
 
 }
 
-.createdAt {
+.createdAt, .youIcon {
   margin-left: 10px;
+}
+
+.youIcon {
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  padding: 2px;
+  
 }
 
 .comment-topRow {
@@ -58,8 +66,12 @@
   width: 100%;
 }
 
-.replyButton {
+.replyButton, .editButton {
   margin-left: auto;
+}
+
+.deleteButton {
+  margin-left: 10px;
 }
 
 .avatar {
@@ -95,4 +107,42 @@
   align-self: flex-start;
   border-radius: 5px;
   background-color: lightgrey;
+}
+
+/* .postComment {
+  
+} */
+
+.postCommentContainer {
+  display: flex;
+  width: 100%;
+}
+
+.avatar-post {
+  height: 40px;
+  aspect-ratio: 1 / 1;
+}
+
+.postCommentInput, .postCommentButton {
+  margin-left: 10px;
+}
+
+.postCommentInput {
+  flex-grow: 1;
+  /* flex-shrink: 1; */
+  /* flex-basis: 0; */
+  height: 100px;
+}
+
+.postCommentButton {
+  width: 100px;
+  height: 50px;
+  border: 0px;
+  background-color: blue;
+  color: white;
+  border-radius: 5px;
+}
+
+input {
+  box-sizing: border-box;
 }

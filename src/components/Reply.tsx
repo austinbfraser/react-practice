@@ -4,22 +4,35 @@ import VotingModule from './VotingModule';
 
 interface ReplyProps {
   data: ReplyData;
+  currentUser: string;
 }
 
-const Reply = ({ data }: ReplyProps) => {
+const Reply = ({ data, currentUser }: ReplyProps) => {
+  const isOwnPost: boolean = data.user.username === currentUser;
+
   return (
-    <div className='reply'>
+    <div className="reply">
       <VotingModule score={data.score} />
       <div className="comment-main">
         <div className="comment-topRow">
           <img className="avatar" src={data.user.image.png} />
           <p className="username">
             {data.user.username}
+            {isOwnPost ? <span className='youIcon'>you</span> : null}
             <span className="createdAt">{data.createdAt}</span>
           </p>
-          <button className="replyButton">Reply</button>
+          {isOwnPost ? (
+            <>
+              <button className="editButton">Edit</button>
+              <button className="deleteButton">Delete</button>
+            </>
+          ) : (
+            <button className="replyButton">Reply</button>
+          )}
         </div>
-        <p>{data.content}</p>
+        <p>
+          @{data.replyingTo} {data.content}
+        </p>
       </div>
     </div>
   );
