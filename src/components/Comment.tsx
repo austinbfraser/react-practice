@@ -1,21 +1,38 @@
-// import React from 'react';
-import type { CommentData } from '../interfaces';
+import { useState } from 'react';
+import type { CommentData, User } from '../interfaces';
 import Reply from './Reply';
 import VotingModule from './VotingModule';
+import PostReply from './PostReply';
 
 interface CommentProps {
-  data: CommentData;
-  currentUser: string;
+  data: CommentData
+  currentUser: User
   setComments: (input: CommentData[]) => void
   comments: CommentData[]
+  nextId: number
+  setNextId: (input: number) => void
 }
 
-const Comment = ({ data, currentUser, setComments, comments }: CommentProps) => {
-  const isOwnPost: boolean = data.user.username === currentUser;
+const Comment = ({
+  data,
+  currentUser,
+  setComments,
+  comments,
+  nextId,
+  setNextId
+}: CommentProps) => {
+  const isOwnPost: boolean = data.user.username === currentUser.username;
+
+  const [activeReply, setActiveReply] = useState<boolean>(false);
 
   const handleDelete = () => {
     const id: number = data.id;
-    setComments(comments.filter(comment => comment.id !== id));
+    setComments(comments.filter((comment) => comment.id !== id));
+  };
+
+  const handleReply = () => {
+    if (!activeReply) setActiveReply(true);
+
   };
 
   return (
@@ -34,25 +51,36 @@ const Comment = ({ data, currentUser, setComments, comments }: CommentProps) => 
               {isOwnPost ? (
                 <>
                   <button className="editButton">Edit</button>
-                  <button onClick={handleDelete} className="deleteButton">Delete</button>
+                  <button onClick={handleDelete} className="deleteButton">
+                    Delete
+                  </button>
                 </>
               ) : (
-                <button className="replyButton">Reply</button>
+                <button onClick={handleReply} className="replyButton">Reply</button>
               )}
             </div>
             <p>{data.content}</p>
           </div>
         </div>
 
-        {data.replies.length
-          ? data.replies.map((reply) => {
-              return (
-                <div className="replyContainer" key={`reply-${reply.id}`}>
-                  <Reply data={reply} currentUser={currentUser} />
-                </div>
-              );
-            })
+        {data.replies.length > 0 || activeReply
+          ? <div className="replyContainer" key={`reply-${Date.now()}`}>
+              {data.replies.map((reply) => <Reply data={reply} currentUser={currentUser} />)}
+              {activeReply && 
+                <PostReply 
+                  currentUser={currentUser} 
+                  setComments={setComments} 
+                  comments={comments} 
+                  nextId={nextId} 
+                  setNextId={setNextId}
+                  replyingTo={data.user.username}
+                  commentId={data.id}
+                  activeReply={activeReply}
+                  setActiveReply={setActiveReply}
+                  />}
+            </div>
           : null}
+
       </div>
     </>
   );

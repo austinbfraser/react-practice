@@ -1,14 +1,14 @@
 // import React from 'react';
-import type { ReplyData } from '../interfaces';
+import type { ReplyData, User } from '../interfaces';
 import VotingModule from './VotingModule';
 
 interface ReplyProps {
   data: ReplyData;
-  currentUser: string;
+  currentUser: User;
 }
 
 const Reply = ({ data, currentUser }: ReplyProps) => {
-  const isOwnPost: boolean = data.user.username === currentUser;
+  const isOwnPost: boolean = data.user.username === currentUser.username;
 
   return (
     <div className="reply">
