@@ -1,4 +1,4 @@
-// import React from 'react';
+import { useState } from 'react';
 import type { ReplyData, User, CommentData, ActiveReply } from '../interfaces';
 import VotingModule from './VotingModule';
 
@@ -19,9 +19,11 @@ const Reply = ({
   setComments,
   commentId,
   activeReply,
-  setActiveReply
+  setActiveReply,
 }: ReplyProps) => {
   const isOwnPost: boolean = data.user.username === currentUser.username;
+
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const handleDelete = () => {
     const id: number = data.id;
@@ -38,7 +40,12 @@ const Reply = ({
   };
 
   const handleReply = () => {
-    if (!activeReply.status) setActiveReply({status: true, replyingTo: data.user.username});
+    if (!activeReply.status)
+      setActiveReply({ status: true, replyingTo: data.user.username });
+  };
+
+  const handleEdit = () => {
+    if (!isEditing) setIsEditing(true);
   };
 
   return (
@@ -54,16 +61,20 @@ const Reply = ({
           </p>
           {isOwnPost ? (
             <>
-              <button className="editButton">Edit</button>
-              <button onClick={handleDelete} className="deleteButton">Delete</button>
+              <button onClick={handleEdit} className="editButton">Edit</button>
+              <button onClick={handleDelete} className="deleteButton">
+                Delete
+              </button>
             </>
           ) : (
-            <button onClick={handleReply} className="replyButton">Reply</button>
+            <button onClick={handleReply} className="replyButton">
+              Reply
+            </button>
           )}
         </div>
-        <p>
-          @{data.replyingTo} {data.content}
-        </p>
+        {!isEditing 
+          ? <p>@{data.replyingTo} {data.content}</p>
+          : <textarea className="editBox" value={`@${data.replyingTo} ${data.content}`}></textarea>}
       </div>
     </div>
   );

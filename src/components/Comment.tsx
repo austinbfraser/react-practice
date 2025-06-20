@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import type { CommentData, User, ActiveReply } from '../interfaces';
 import Reply from './Reply';
 import VotingModule from './VotingModule';
@@ -24,6 +25,8 @@ const Comment = ({
   const isOwnPost: boolean = data.user.username === currentUser.username;
 
   const [activeReply, setActiveReply] = useState<ActiveReply>({status: false, replyingTo: ''});
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [text, setText] = useState<string>(data.content);
 
   const handleDelete = () => {
     const id: number = data.id;
@@ -33,6 +36,24 @@ const Comment = ({
   const handleReply = () => {
     if (!activeReply.status) setActiveReply({status: true, replyingTo: data.user.username});
   };
+
+  const handleEdit = () => {
+    if (!isEditing) setIsEditing(true);
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newComment: CommentData = {...data, content: text};
+    setComments(comments.map(comment => {
+      if (data.id === comment.id) return newComment
+      else return comment
+    }));
+    setIsEditing(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  setText(e.target.value);
+};
 
   return (
     <>
@@ -49,7 +70,7 @@ const Comment = ({
               </p>
               {isOwnPost ? (
                 <>
-                  <button className="editButton">Edit</button>
+                  <button onClick={handleEdit} className="editButton">Edit</button>
                   <button onClick={handleDelete} className="deleteButton">
                     Delete
                   </button>
@@ -58,7 +79,12 @@ const Comment = ({
                 <button onClick={handleReply} className="replyButton">Reply</button>
               )}
             </div>
-            <p>{data.content}</p>
+            {!isEditing 
+              ? <p>{data.content}</p> 
+              : <form onSubmit={handleSubmit}>
+                  <textarea className="editBox" value={text} onChange={handleChange}></textarea>
+                  <button type="submit">Submit</button>
+                </form>}
           </div>
         </div>
 
