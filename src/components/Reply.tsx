@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 import type { ReplyData, User, CommentData, ActiveReply } from '../interfaces';
 import VotingModule from './VotingModule';
 
@@ -24,6 +25,7 @@ const Reply = ({
   const isOwnPost: boolean = data.user.username === currentUser.username;
 
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [text, setText] = useState<string>(data.content);
 
   const handleDelete = () => {
     const id: number = data.id;
@@ -48,6 +50,26 @@ const Reply = ({
     if (!isEditing) setIsEditing(true);
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const newReply: ReplyData = { ...data, content: text };
+    setComments(
+      comments.map((comment) => {
+        if (comment.id === commentId) {
+          return { ...comment, replies: comment.replies.map(reply => {
+            if (data.id === reply.id) return newReply
+            else return reply
+          }) };
+        } else return comment;
+      })
+    );
+    setIsEditing(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
   return (
     <div className="reply">
       <VotingModule score={data.score} />
@@ -61,7 +83,9 @@ const Reply = ({
           </p>
           {isOwnPost ? (
             <>
-              <button onClick={handleEdit} className="editButton">Edit</button>
+              <button onClick={handleEdit} className="editButton">
+                Edit
+              </button>
               <button onClick={handleDelete} className="deleteButton">
                 Delete
               </button>
@@ -72,9 +96,20 @@ const Reply = ({
             </button>
           )}
         </div>
-        {!isEditing 
-          ? <p>@{data.replyingTo} {data.content}</p>
-          : <textarea className="editBox" value={`@${data.replyingTo} ${data.content}`}></textarea>}
+        {!isEditing ? (
+          <p>
+            @{data.replyingTo} {data.content}
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <textarea
+              className="editBox"
+              value={text}
+              onChange={handleChange}
+            ></textarea>
+            <button type="submit">Submit</button>
+          </form>
+        )}
       </div>
     </div>
   );
