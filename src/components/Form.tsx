@@ -8,16 +8,18 @@ interface FormProps {
   setFile: (file: File | null) => void;
   errors: ErrorsInterface;
   setErrors: (input: ErrorsInterface) => void;
-  fullName: string;
-  setFullName: (input: string) => void;
-  email: string;
-  setEmail: (input: string) => void;
-  github: string;
-  setGithub: (input: string) => void;
+  fullNameProps: FormTextProps
+  emailProps: FormTextProps
+  githubProps: FormTextProps
   previewUrl: string | undefined;
   setPreviewUrl: (input: string | undefined) => void;
   validSubmission: boolean;
   setValidSubmission: (input: boolean) => void;
+}
+
+export interface FormTextProps {
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Form = ({ 
@@ -25,12 +27,9 @@ const Form = ({
   setFile, 
   errors, 
   setErrors, 
-  fullName,
-  setFullName,
-  email,
-  setEmail,
-  github,
-  setGithub,
+  fullNameProps,
+  emailProps,
+  githubProps,
   previewUrl,
   setPreviewUrl,
   validSubmission,
@@ -41,21 +40,17 @@ const Form = ({
     e.preventDefault(); // Prevent actual form submission
     const errors: ErrorsInterface = {};
     if (file === null) errors.image = 'Avatar is required.';
-    if (!fullName.trim()) errors.fullName = 'Full name is required.';
-    if (!email.trim()) errors.email = 'Email is required.';
-    if (email.trim() && !email.includes('@'))
+    if (!fullNameProps.value.trim()) errors.fullName = 'Full name is required.';
+    if (!emailProps.value.trim()) errors.email = 'Email is required.';
+    if (emailProps.value.trim() && !emailProps.value.includes('@'))
       errors.email = 'Enter a valid email address.';
-    if (!github.trim()) errors.github = 'GitHub username is required.';
+    if (!githubProps.value.trim()) errors.github = 'GitHub username is required.';
 
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
       // All good: proceed with form logic
       console.log('Form is valid! Submitting...');
-      // setFile(null);
-      // setFullName('');
-      // setEmail('');
-      // setGithub('');
       setValidSubmission(!validSubmission);
     }
   };
@@ -106,15 +101,7 @@ const Form = ({
           className="textInput"
           id="textInput-fullName"
           type="text"
-          value={fullName}
-          onChange={(e) => {
-            setFullName(e.target.value);
-            if (errors.fullName) {
-              const newErrors = { ...errors };
-              delete newErrors.fullName;
-              setErrors(newErrors);
-            }
-          }}
+          {...fullNameProps}
           aria-describedby="error-fullName"
         ></input>
         {errors.fullName && (
@@ -130,15 +117,7 @@ const Form = ({
           id="textInput-email"
           placeholder="example@email.com"
           type="text"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (errors.email) {
-              const newErrors = { ...errors };
-              delete newErrors.email;
-              setErrors(newErrors);
-            }
-          }}
+          {...emailProps}
           aria-describedby="error-email"
         ></input>
         {errors.email && (
@@ -153,16 +132,8 @@ const Form = ({
           className="textInput"
           id="textInput-github"
           placeholder="@yourusername"
-          onChange={(e) => {
-            setGithub(e.target.value);
-            if (errors.github) {
-              const newErrors = {...errors};
-              delete newErrors.github;
-              setErrors(newErrors);
-            }
-          }}
+          {...githubProps}
           type="text"
-          value={github}
           aria-describedby="error-github"
         ></input>
         {errors.github && (

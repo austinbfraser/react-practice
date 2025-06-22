@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import TicketScreen from './components/TicketScreen';
 import CodingConfLogo from './components/CodingConfLogo';
+import useForm from './hooks/useForm';
 
 export interface ErrorsInterface {
   image?: string;
@@ -11,39 +12,31 @@ export interface ErrorsInterface {
   github?: string;
   imageSize?: string;
   imageType?: string;
+  [key: string]: string | undefined;
 }
 
 function App() {
-  const TEST = true;
+  // const TEST = false;
 
-  const defaultFile: File | null = null;
-  let defaultFullName: string;
-  let defaultGithub: string;
-  let defaultEmail: string;
-  if (TEST) {
-    // defaultFile = new File(
-    //   [new Uint8Array([255, 216, 255])], // Minimal JPEG header (just for mock)
-    //   'avatar.jpg',
-    //   {
-    //     type: 'image/jpeg',
-    //     lastModified: new Date('2025-01-15T23:45:37-08:00').getTime(),
-    //   }
-    // );
-    defaultFullName = 'Austin Fraser';
-    defaultEmail = 'austinbfraser@gmail.com';
-    defaultGithub = '@austinbfraser';
-  } else {
-    // defaultFile = null;
-    defaultFullName = '';
-    defaultEmail = '';
-    defaultGithub = '';
-  }
+  // const defaultFile: File | null = null;
+  // let defaultFullName: string;
+  // let defaultGithub: string;
+  // let defaultEmail: string;
+  // if (TEST) {
+  //   defaultFullName = 'Austin Fraser';
+  //   defaultEmail = 'austinbfraser@gmail.com';
+  //   defaultGithub = '@austinbfraser';
+  // } else {
+  //   defaultFullName = '';
+  //   defaultEmail = '';
+  //   defaultGithub = '';
+  // }
 
   const [errors, setErrors] = useState<ErrorsInterface>({});
-  const [file, setFile] = useState<File | null>(defaultFile);
-  const [fullName, setFullName] = useState<string>(defaultFullName);
-  const [email, setEmail] = useState<string>(defaultEmail);
-  const [github, setGithub] = useState<string>(defaultGithub);
+  const [file, setFile] = useState<File | null>(null);
+  const fullNameProps = useForm('fullName', errors, setErrors);
+  const emailProps = useForm('email', errors, setErrors);
+  const githubProps = useForm('github', errors, setErrors);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [validSubmission, setValidSubmission] = useState<boolean>(false);
 
@@ -83,12 +76,9 @@ function App() {
           setFile={setFile}
           errors={errors}
           setErrors={setErrors}
-          fullName={fullName}
-          setFullName={setFullName}
-          email={email}
-          setEmail={setEmail}
-          github={github}
-          setGithub={setGithub}
+          fullNameProps={fullNameProps}
+          emailProps={emailProps}
+          githubProps={githubProps}
           previewUrl={previewUrl}
           setPreviewUrl={setPreviewUrl}
           validSubmission={validSubmission}
@@ -98,9 +88,9 @@ function App() {
         <TicketScreen
           file={file}
           errors={errors}
-          fullName={fullName}
-          email={email}
-          github={github}
+          fullNameProps={fullNameProps}
+          emailProps={emailProps}
+          githubProps={githubProps}
           previewUrl={previewUrl}
         />
       )}

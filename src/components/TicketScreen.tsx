@@ -3,30 +3,31 @@ import type { ErrorsInterface } from '../App';
 // import TicketSvg from './TicketSvg';
 import CodingConfLogo from './CodingConfLogo';
 import GithubLogo from './GithubLogo';
+import type { FormTextProps } from './Form';
 
 interface TicketScreenProps {
   file: File | null;
   errors: ErrorsInterface;
-  fullName: string;
-  email: string;
-  github: string;
+  fullNameProps: FormTextProps;
+  emailProps: FormTextProps;
+  githubProps: FormTextProps;
   previewUrl: string | undefined;
 }
 
 const TicketScreen = ({
   // file,
   // errors,
-  fullName,
-  email,
-  github,
+  fullNameProps,
+  emailProps,
+  githubProps,
   previewUrl,
 }: TicketScreenProps) => {
   return (
     <div className="ticketScreenContainer">
       <h1 className="ticketHeader">
-        Congrats, {fullName}!<br></br>Your ticket is ready.
+        Congrats, {fullNameProps.value}!<br></br>Your ticket is ready.
       </h1>
-      <p className="weveEmailed">We've emailed your ticket to {email} and will send updates in the run up to the event.</p>
+      <p className="weveEmailed">We've emailed your ticket to {emailProps.value} and will send updates in the run up to the event.</p>
       <div className="ticketSvg">
         <CodingConfLogo />
         <p className="dateAndLocation">Jan 31, 2025  /  Austin, TX</p>
@@ -36,9 +37,9 @@ const TicketScreen = ({
         <div className="lowerContainer">
           <img className="ticketAvatar" src={previewUrl} />
           <div className="lowerContainer-text">
-            <p className="lowerContainer-fullName">{fullName}</p>
+            <p className="lowerContainer-fullName">{fullNameProps.value}</p>
             <div className="githubContainer">
-              <GithubLogo /><span>{github}</span>
+              <GithubLogo /><span>{githubProps.value}</span>
             </div>
           </div>
         </div>
