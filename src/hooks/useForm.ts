@@ -1,26 +1,39 @@
 import { useState } from 'react';
 import type { ErrorsInterface } from '../App';
 
-// interface UseFormProps {
-//   field: string;
-//   errors: ErrorsInterface;
-//   setErrors: (input: ErrorsInterface) => void;
-// }
+export default function useForm(errors: ErrorsInterface, setErrors: (input: ErrorsInterface) => void) {
+  const [fullName, setFullName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [github, setGithub] = useState<string>('');
 
-export default function useForm(field: string, errors: ErrorsInterface, setErrors: (input: ErrorsInterface) => void) {
-  const [value, setValue] = useState<string>('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    if (errors[field]) {
+  const handleChangeFullName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFullName(e.target.value);
+    if (errors.fullName) {
       const newErrors = { ...errors };
-      delete newErrors[field];
+      delete newErrors.fullName;
+      setErrors(newErrors);
+    }
+  };
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (errors.email) {
+      const newErrors = { ...errors };
+      delete newErrors.email;
+      setErrors(newErrors);
+    }
+  };
+  const handleChangeGithub = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGithub(e.target.value);
+    if (errors.github) {
+      const newErrors = { ...errors };
+      delete newErrors.github;
       setErrors(newErrors);
     }
   };
 
   return {
-    value,
-    onChange: handleChange
+    fullName: {value: fullName, onChange: handleChangeFullName},
+    email: {value: email, onChange: handleChangeEmail},
+    github: {value: github, onChange: handleChangeGithub}
   }
 }

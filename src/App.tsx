@@ -34,9 +34,7 @@ function App() {
 
   const [errors, setErrors] = useState<ErrorsInterface>({});
   const [file, setFile] = useState<File | null>(null);
-  const fullNameProps = useForm('fullName', errors, setErrors);
-  const emailProps = useForm('email', errors, setErrors);
-  const githubProps = useForm('github', errors, setErrors);
+  const formTextProps = useForm( errors, setErrors);
   const [previewUrl, setPreviewUrl] = useState<string | undefined>(undefined);
   const [validSubmission, setValidSubmission] = useState<boolean>(false);
 
@@ -76,9 +74,7 @@ function App() {
           setFile={setFile}
           errors={errors}
           setErrors={setErrors}
-          fullNameProps={fullNameProps}
-          emailProps={emailProps}
-          githubProps={githubProps}
+          formTextProps={formTextProps}
           previewUrl={previewUrl}
           setPreviewUrl={setPreviewUrl}
           validSubmission={validSubmission}
@@ -88,9 +84,7 @@ function App() {
         <TicketScreen
           file={file}
           errors={errors}
-          fullNameProps={fullNameProps}
-          emailProps={emailProps}
-          githubProps={githubProps}
+          formTextProps={formTextProps}
           previewUrl={previewUrl}
         />
       )}

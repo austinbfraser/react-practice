@@ -8,9 +8,7 @@ interface FormProps {
   setFile: (file: File | null) => void;
   errors: ErrorsInterface;
   setErrors: (input: ErrorsInterface) => void;
-  fullNameProps: FormTextProps
-  emailProps: FormTextProps
-  githubProps: FormTextProps
+  formTextProps: {fullName: FormTextProps, email: FormTextProps, github: FormTextProps}
   previewUrl: string | undefined;
   setPreviewUrl: (input: string | undefined) => void;
   validSubmission: boolean;
@@ -27,24 +25,24 @@ const Form = ({
   setFile, 
   errors, 
   setErrors, 
-  fullNameProps,
-  emailProps,
-  githubProps,
+  formTextProps,
   previewUrl,
   setPreviewUrl,
   validSubmission,
   setValidSubmission
 }: FormProps) => {
 
+  const { fullName, email, github } = formTextProps;
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent actual form submission
     const errors: ErrorsInterface = {};
     if (file === null) errors.image = 'Avatar is required.';
-    if (!fullNameProps.value.trim()) errors.fullName = 'Full name is required.';
-    if (!emailProps.value.trim()) errors.email = 'Email is required.';
-    if (emailProps.value.trim() && !emailProps.value.includes('@'))
+    if (!fullName.value.trim()) errors.fullName = 'Full name is required.';
+    if (!email.value.trim()) errors.email = 'Email is required.';
+    if (email.value.trim() && !email.value.includes('@'))
       errors.email = 'Enter a valid email address.';
-    if (!githubProps.value.trim()) errors.github = 'GitHub username is required.';
+    if (!github.value.trim()) errors.github = 'GitHub username is required.';
 
     setErrors(errors);
 
@@ -101,7 +99,7 @@ const Form = ({
           className="textInput"
           id="textInput-fullName"
           type="text"
-          {...fullNameProps}
+          {...fullName}
           aria-describedby="error-fullName"
         ></input>
         {errors.fullName && (
@@ -117,7 +115,7 @@ const Form = ({
           id="textInput-email"
           placeholder="example@email.com"
           type="text"
-          {...emailProps}
+          {...email}
           aria-describedby="error-email"
         ></input>
         {errors.email && (
@@ -132,7 +130,7 @@ const Form = ({
           className="textInput"
           id="textInput-github"
           placeholder="@yourusername"
-          {...githubProps}
+          {...github}
           type="text"
           aria-describedby="error-github"
         ></input>
