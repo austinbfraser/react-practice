@@ -113,9 +113,9 @@ function App() {
         </tbody>
       </table>
       <div className={s.statsContainer}>
-        {typeof fastest === 'number' && <div>Fastest: {fastest} ms </div>}
-        {typeof slowest === 'number' && <div>Slowest: {slowest} ms </div>}
-        {!!average && <div>Average: {average} ms </div>}
+        <div>Fastest: {fastest} ms </div>
+        <div>Slowest: {slowest} ms </div>
+        <div>Average: {!!average && average} ms </div>
       </div>
     </div>
   );
