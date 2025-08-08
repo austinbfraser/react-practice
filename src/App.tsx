@@ -22,6 +22,7 @@ const results: any = [
     executionTime: 400,
   },
 ];
+
 const getStyles = () => ({
   button: css`
     border: 1px solid black;
@@ -30,6 +31,20 @@ const getStyles = () => ({
   `,
   container: css`
     margin: 10px;
+  `,
+  statsContainer: css`
+    margin-top: 20px;
+  `,
+  table: css`
+    margin-top: 20px;
+    border-collapse: collapse;
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
   `,
 });
 
@@ -50,7 +65,7 @@ function App() {
       <button className={s.button} onClick={() => handleOnClick()}>
         Get Last Location
       </button>
-      <table>
+      <table className={s.table}>
         <thead>
           <tr>
             <th>Timestamp</th>
@@ -68,7 +83,7 @@ function App() {
           </tr>
         </tbody>
       </table>
-      <div>
+      <div className={s.statsContainer}>
         <div>Fastest: ms </div>
         <div>Slowest: ms </div>
         <div>Average: ms </div>
