@@ -24,3 +24,7 @@
   - how to sanitize input to use the eval() method safely
   - insert comma every 3 digits?
   - how to treat values too wide for display?
+
+- PROBLEM
+  - how to deal with display vs. input?
+  instead of treating input as one big string, maybe instead it needs to be an array of strings, delimited by symbols, i.e. ['1', '+', '9'], and what gets displayed is the last array element that isn't a symbol (or the evaluated result).  later, the equals button would concat the entire array and evaluate it, and also replace the entire array with a new one-element array consisting of just the evaluated result
