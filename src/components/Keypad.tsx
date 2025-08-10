@@ -59,9 +59,15 @@ const Keypad = ({ input, setInput, setDisplay }: KeypadProps) => {
   };
 
   const handleClickDel = function () {
-    if (input !== null) {
-      if (input.length === 1) setInput([]);
-      else setInput(input.slice(0, input.length - 1)); // !!!!!!!! THIS IS BROKEN due to the array state change
+    if (input.length > 0) {
+      if (input[input.length - 1].length === 1) setInput(input.slice(0, input.length - 1));
+      else {
+        const newInput = [...input];
+        let last = newInput[newInput.length - 1];
+        last = last.slice(0, last.length - 1);
+        newInput[newInput.length - 1] = last;
+        setInput(newInput);
+      }
     }
   };
 
