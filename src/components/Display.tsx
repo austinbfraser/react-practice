@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Display = () => {
+interface DisplayProps {
+  display: string | null
+}
+
+const Display = ({ display }: DisplayProps) => {
   return (
-    <div className='display'>12345</div>
+    <div className='display'>{display !== null ? display : '0'}</div>
   )
 }
 
