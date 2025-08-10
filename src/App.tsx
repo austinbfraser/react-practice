@@ -4,7 +4,7 @@ import Keypad from './components/Keypad';
 import Display from './components/Display';
 
 function App() {
-  const [input, setInput] = useState<string | null>(null);
+  const [input, setInput] = useState<string[]>([]);
   const [display, setDisplay] = useState<string | null>(null);
 
   return (
