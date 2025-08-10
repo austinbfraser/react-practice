@@ -3,26 +3,6 @@ import { css } from '@emotion/css';
 
 import { fetchLastLocation } from './backend/fetchLastLocations';
 
-// This is an example results data structure
-// const results: any = [
-//   {
-//     timestamp: Date.now(),
-//     address: {
-//       street: '5th Ave',
-//       city: 'Random City',
-//     },
-//     executionTime: 900,
-//   },
-//   {
-//     timestamp: Date.now() + 2000,
-//     address: {
-//       street: 'Main Road',
-//       city: 'New Town',
-//     },
-//     executionTime: 400,
-//   },
-// ];
-
 interface MockApiResponse {
   address: {
     street: string;
@@ -62,31 +42,24 @@ const getStyles = () => ({
 });
 
 function App() {
-  const [response, setResponse] = useState<Response[]>([]);
+  const [responses, setResponses] = useState<Response[]>([]);
   let latest;
-  if (response.length > 0) {
-    latest = response[response.length - 1];
+  if (responses.length > 0) {
+    latest = responses[responses.length - 1];
   }
 
   const handleOnClick = async () => {
     const timestamp = Date.now();
-
-    await fetchLastLocation().then((res) => {
-      const end = Date.now();
-      const newResponse = [...response];
-      newResponse.push({ timestamp, executionTime: end - timestamp, ...res });
-      setResponse(newResponse);
-    });
+    const res = await fetchLastLocation();
+    const end = Date.now();
+    setResponses(prev => [...prev, { timestamp, executionTime: end - timestamp, ...res }]);
   };
 
-  let times = response.map((item) => item.executionTime);
+  const times: number[] = responses.map((item) => item.executionTime);
   times.sort((a, b) => a - b);
   const fastest = times[0];
   const slowest = times[times.length - 1];
-  const average = Number(
-    (times.reduce((acc, curr) => acc + curr, 0) / times.length).toFixed(0)
-  );
-  
+  const average = Math.floor(times.reduce((acc, curr) => acc + curr, 0) / times.length);
 
   const s = getStyles();
   return (
