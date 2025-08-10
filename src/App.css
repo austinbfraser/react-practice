@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap');
+
+#root {
+  
+}
+
+
+html, body, .key {
+  font-family: "League Spartan", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: hsl(222, 26%, 31%);
+}
+
+.display {
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: hsl(224, 36%, 15%);
+  color: hsl(0, 100%, 100%);
+  text-align: end;
+}
+
+.keypadContainer {
+  padding: 8px;
+  border-radius: 5px;
+  background-color: hsl(223, 31%, 20%);
+}
+
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 40px);
+  column-gap: 8px;
+  row-gap: 8px;
+}
+
+.key {
+  border-radius: 5px;
+  border: 0px;
+  background-color: hsl(0, 0%, 90%);
+  box-shadow: 0px 2px hsl(224, 28%, 35%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#reset {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+#equals {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  background-color: hsl(6, 63%, 50%);
+  box-shadow: 0px 2px hsl(6, 70%, 34%);
+}
+
+#delete, #reset {
+  background-color: hsl(225, 21%, 49%);
+  box-shadow: 0px 2px hsl(224, 28%, 35%);
+  color: hsl(0, 100%, 100%);
+  font-size: 14px;
+}
