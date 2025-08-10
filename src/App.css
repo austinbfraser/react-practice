@@ -53,6 +53,11 @@ html, body, .key {
   align-items: center;
 }
 
+.key:active, #equals:active, #delete:active, #reset:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+
 #reset {
   grid-column-start: 1;
   grid-column-end: 3;
