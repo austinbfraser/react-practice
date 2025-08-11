@@ -51,7 +51,8 @@ const Keypad = ({ input, setInput }: KeypadProps) => {
     if (input.length === 0 || operators.includes(input[input.length - 1]))
       return;
     else {
-      setInput([...input, value]);
+      if (value !== 'x') setInput([...input, value]);
+      else setInput([...input, '*']);
     }
   };
 
@@ -73,6 +74,16 @@ const Keypad = ({ input, setInput }: KeypadProps) => {
     setInput([]);
   };
 
+  const handleClickEquals = function () {
+    if (input.length === 0) return;
+    const inputCopy = [...input];
+    if (operators.includes(inputCopy[inputCopy.length - 1])) inputCopy.pop();
+    const joined = inputCopy.join(' ');
+    const evaluated = eval(joined);
+    console.log('evaluated: ', evaluated);
+    setInput([evaluated]);
+  };
+
   return (
     <div className="keypadContainer">
       <div className="keypad">
@@ -84,6 +95,7 @@ const Keypad = ({ input, setInput }: KeypadProps) => {
             handleClickOperators={handleClickOperators}
             handleClickDel={handleClickDel}
             handleClickReset={handleClickReset}
+            handleClickEquals={handleClickEquals}
           />
         ))}
       </div>
