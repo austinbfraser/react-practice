@@ -4,10 +4,9 @@ import Key from './Key';
 interface KeypadProps {
   input: string[];
   setInput: (input: string[]) => void;
-  setDisplay: (input: string | null) => void;
 }
 
-const Keypad = ({ input, setInput, setDisplay }: KeypadProps) => {
+const Keypad = ({ input, setInput }: KeypadProps) => {
   const values = [
     '7',
     '8',
@@ -31,16 +30,6 @@ const Keypad = ({ input, setInput, setDisplay }: KeypadProps) => {
 
   const operators = ['+', '-', 'x', '/'];
 
-  // const handleClickMath = function(value: string): void {
-  //   // handle numeric input
-  //   if (input === null) setInput(value);
-  //   else {
-  //     if (symbols.includes(input[input.length - 1]) && symbols.includes(value)) return;
-  //     setInput(input + value);
-  //   }
-  // };
-
-  // handle numeric input
   const handleClickNums = function (value: string) {
     if (input.length === 0) setInput([value]);
     else {
@@ -58,9 +47,18 @@ const Keypad = ({ input, setInput, setDisplay }: KeypadProps) => {
     }
   };
 
+  const handleClickOperators = function (value: string) {
+    if (input.length === 0 || operators.includes(input[input.length - 1]))
+      return;
+    else {
+      setInput([...input, value]);
+    }
+  };
+
   const handleClickDel = function () {
     if (input.length > 0) {
-      if (input[input.length - 1].length === 1) setInput(input.slice(0, input.length - 1));
+      if (input[input.length - 1].length === 1)
+        setInput(input.slice(0, input.length - 1));
       else {
         const newInput = [...input];
         let last = newInput[newInput.length - 1];
@@ -73,7 +71,6 @@ const Keypad = ({ input, setInput, setDisplay }: KeypadProps) => {
 
   const handleClickReset = function () {
     setInput([]);
-    setDisplay(null);
   };
 
   return (
@@ -84,6 +81,7 @@ const Keypad = ({ input, setInput, setDisplay }: KeypadProps) => {
             key={`key${value}`}
             value={value}
             handleClickNums={handleClickNums}
+            handleClickOperators={handleClickOperators}
             handleClickDel={handleClickDel}
             handleClickReset={handleClickReset}
           />

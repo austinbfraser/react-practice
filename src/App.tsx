@@ -5,13 +5,12 @@ import Display from './components/Display';
 
 function App() {
   const [input, setInput] = useState<string[]>([]);
-  const [display, setDisplay] = useState<string | null>(null);
 
   return (
     <div className="mainContainer">
       <div className="narrowContainer">
-        <Display display={display}/>
-        <Keypad input={input} setInput={setInput} setDisplay={setDisplay}/>
+        <Display input={input}/>
+        <Keypad input={input} setInput={setInput}/>
       </div>
     </div>
   );

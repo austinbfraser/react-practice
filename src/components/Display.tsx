@@ -1,12 +1,12 @@
 import React from 'react';
 
 interface DisplayProps {
-  display: string | null
+  input: string[];
 }
 
-const Display = ({ display }: DisplayProps) => {
+const Display = ({ input }: DisplayProps) => {
   return (
-    <div className='display'>{display !== null ? display : '0'}</div>
+    <div className='display'>{input.length > 0 ? input[input.length - 1] : '0'}</div>
   )
 }
 
