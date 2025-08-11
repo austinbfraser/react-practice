@@ -77,7 +77,7 @@ const Keypad = ({ input, setInput }: KeypadProps) => {
     if (operators.includes(inputCopy[inputCopy.length - 1])) inputCopy.pop();
     const joined = inputCopy.join(' ');
     const xToStar = joined.replaceAll('x', '*');
-    const evaluated = eval(xToStar);
+    const evaluated = Function(`return ${xToStar}`)();
     console.log('evaluated: ', evaluated);
     setInput([evaluated]);
   };
