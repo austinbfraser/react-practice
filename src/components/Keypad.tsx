@@ -50,10 +50,7 @@ const Keypad = ({ input, setInput }: KeypadProps) => {
   const handleClickOperators = function (value: string) {
     if (input.length === 0 || operators.includes(input[input.length - 1]))
       return;
-    else {
-      if (value !== 'x') setInput([...input, value]);
-      else setInput([...input, '*']);
-    }
+    else setInput([...input, value]);
   };
 
   const handleClickDel = function () {
@@ -79,7 +76,8 @@ const Keypad = ({ input, setInput }: KeypadProps) => {
     const inputCopy = [...input];
     if (operators.includes(inputCopy[inputCopy.length - 1])) inputCopy.pop();
     const joined = inputCopy.join(' ');
-    const evaluated = eval(joined);
+    const xToStar = joined.replaceAll('x', '*');
+    const evaluated = eval(xToStar);
     console.log('evaluated: ', evaluated);
     setInput([evaluated]);
   };
