@@ -66,6 +66,12 @@ body {
 .avatar {
   max-width: 40px;
   margin-left: 2vw;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.avatar:hover {
+  border: 2px solid hsl(26, 100%, 55%);
 }
 
 /* spacing between nav bar and horizontal line */
