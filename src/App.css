@@ -2,6 +2,7 @@
 
 body {
   font-family: 'Kumbh Sans';
+  color: hsl(219, 9%, 45%);
 }
 
 .outermostContainer {
@@ -17,20 +18,61 @@ body {
 
 .navBar {
   display: flex;
-  align-items: center;
-  margin-top: 20px;
+  /* align-items: center; */
+  align-items: stretch;
+  height: 65px;
+  margin-top: 5vh;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid hsl(223, 64%, 98%)
+}
+
+/* every direct child is a 'cell' that centers its content */
+.navBar > * {
+  display: flex;
+  align-items: center;      /* center content vertically */
+  height: 100%;             /* span full bar height */
+  box-sizing: border-box;
+  padding-bottom: 10px;     /* the visual gap under the text */
 }
 
 #brandLogo {
   transform: translateY(-2px);
-  margin-right: 40px;
+  margin-right: 3vw;
 }
 
 .navBarItem {
-  margin-right: 20px;
+  margin-right: 2vw;
+  border-bottom: 2px solid transparent;
+}
+
+.navBarItem:hover {
+  color: hsl(220, 13%, 13%);
+  cursor: pointer;
+  border-bottom: 2px solid hsl(26, 100%, 55%);
+}
+
+.cart {
+  cursor: pointer;
+}
+
+.cartContainer {
+  margin-left: auto;
+}
+
+.cart:hover {
+  color: hsl(220, 13%, 13%);
 }
 
 .avatar {
   max-width: 40px;
-  margin-left: 20px;
+  margin-left: 2vw; 
+}
+
+/* spacing between nav bar and horizontal line */
+/* #brandLogo, .navBarItem, .cart, .avatar {
+  padding-bottom: 5vh;
+} */
+
+.navBarLine {
+  border-bottom: 2px solid hsl(223, 64%, 98%);
 }

@@ -1,7 +1,11 @@
-import React from 'react';
+// import React from 'react';
 
 const Avatar = () => {
-  return <img src="images/image-avatar.png" className="avatar"></img>;
+  return (
+    <div>
+      <img src="images/image-avatar.png" className="avatar"></img>
+    </div>
+  );
 };
 
 export default Avatar;
