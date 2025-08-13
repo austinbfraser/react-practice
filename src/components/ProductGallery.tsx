@@ -34,16 +34,16 @@ const ProductGallery = () => {
       <img className="imageMain" src={selectedImage}></img>
       <div className="thumbnailContainer">
         <div>
-          <img className="thumbnail" src={images[0].thumbnail}></img>
+          <img className="thumbnail" onClick={() => setSelection(1)} src={images[0].thumbnail}></img>
         </div>
         <div>
-          <img className="thumbnail" src={images[1].thumbnail}></img>
+          <img className="thumbnail" onClick={() => setSelection(2)} src={images[1].thumbnail}></img>
         </div>
         <div>
-          <img className="thumbnail" src={images[2].thumbnail}></img>
+          <img className="thumbnail" onClick={() => setSelection(3)} src={images[2].thumbnail}></img>
         </div>
         <div>
-          <img className="thumbnail" src={images[3].thumbnail}></img>
+          <img className="thumbnail" onClick={() => setSelection(4)} src={images[3].thumbnail}></img>
         </div>
       </div>
     </div>
