@@ -88,6 +88,10 @@ body {
   align-items: center;
 }
 
+.productDescriptionContainer {
+  justify-content: center;
+}
+
 .imageMain {
   width: 80%;
   max-width: 400px;
@@ -130,4 +134,15 @@ body {
   background-color: rgba(255, 255, 255, 0.4); /* white w/ 40% opacity */
   pointer-events: none; /* lets clicks pass through if needed */
   border-radius: 10px;
+}
+
+.sneakerCompany {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.fallLimited {
+  font-weight: 700;
+  font-size: 32px;
+  color: black;
 }
