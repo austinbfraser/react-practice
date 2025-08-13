@@ -6,19 +6,16 @@ import CartSVG from './CartSVG';
 
 const NavBar = () => {
   return (
-    <>
-      <div className="navBar">
-        <BrandLogoSVG />
-        <div className="navBarItem">Collections</div>
-        <div className="navBarItem">Men</div>
-        <div className="navBarItem">Women</div>
-        <div className="navBarItem">About</div>
-        <div className="navBarItem">Contact</div>
-        <CartSVG />
-        <Avatar />
-      </div>
-      {/* <div className='navBarLine'></div> */}
-    </>
+    <div className="navBar">
+      <BrandLogoSVG />
+      <div className="navBarItem">Collections</div>
+      <div className="navBarItem">Men</div>
+      <div className="navBarItem">Women</div>
+      <div className="navBarItem">About</div>
+      <div className="navBarItem">Contact</div>
+      <CartSVG />
+      <Avatar />
+    </div>
   );
 };
 
