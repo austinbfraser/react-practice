@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 const ProductDescription = () => {
   return <div className="productDescriptionContainer">ProductDescription</div>;

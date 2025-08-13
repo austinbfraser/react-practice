@@ -33,17 +33,21 @@ const ProductGallery = () => {
     <div className="productGalleryContainer">
       <img className="imageMain" src={selectedImage}></img>
       <div className="thumbnailContainer">
-        <div>
-          <img className="thumbnail" onClick={() => setSelection(1)} src={images[0].thumbnail}></img>
+        <div className="thumbnailContainerIndividual">
+          <img className={selection === 1 ? "thumbnail-selected" : "thumbnail"} onClick={() => setSelection(1)} src={images[0].thumbnail}></img>
+          <div className={selection === 1 ? "thumbnailOverlay" : "666-EVIL-NONEXISTENT-CLASS"}></div>
         </div>
-        <div>
-          <img className="thumbnail" onClick={() => setSelection(2)} src={images[1].thumbnail}></img>
+        <div className="thumbnailContainerIndividual">
+          <img className={selection === 2 ? "thumbnail-selected" : "thumbnail"} onClick={() => setSelection(2)} src={images[1].thumbnail}></img>
+          <div className={selection === 2 ? "thumbnailOverlay" : "666-EVIL-NONEXISTENT-CLASS"}></div>
         </div>
-        <div>
-          <img className="thumbnail" onClick={() => setSelection(3)} src={images[2].thumbnail}></img>
+        <div className="thumbnailContainerIndividual">
+          <img className={selection === 3 ? "thumbnail-selected" : "thumbnail"} onClick={() => setSelection(3)} src={images[2].thumbnail}></img>
+          <div className={selection === 3 ? "thumbnailOverlay" : "666-EVIL-NONEXISTENT-CLASS"}></div>
         </div>
-        <div>
-          <img className="thumbnail" onClick={() => setSelection(4)} src={images[3].thumbnail}></img>
+        <div className="thumbnailContainerIndividual">
+          <img className={selection === 4 ? "thumbnail-selected" : "thumbnail"} onClick={() => setSelection(4)} src={images[3].thumbnail}></img>
+          <div className={selection === 4 ? "thumbnailOverlay" : "666-EVIL-NONEXISTENT-CLASS"}></div>
         </div>
       </div>
     </div>
